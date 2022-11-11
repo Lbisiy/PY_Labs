@@ -1,3 +1,15 @@
+def check_move(current_player: str, INDEX: int, field: list) -> int:
+    while True:
+        move = int(input(f'Чтобы поставить {current_player} укажите номер ячейки:'))
+        if move > pow(INDEX, 2) or move < 0:
+            print('Вы ввели неправильный номер ячейки')
+            continue
+        elif field[move-1] == 'X' or field[move-1] == '0':
+            print('Ячейка занята!')
+        else:
+            break
+    return move
+
 def draw_field(field: list) -> None:
     """
     Функция отрисовки поля
@@ -62,26 +74,16 @@ def game_continue(win: int, move: int) -> int:
         return continue_
 
 
-def player1_step(field, move) -> list:
+def player_step(field, move, current_player) -> list:
     """
     Функция хода первого игрока. Переводит номер клетки, введенной игроком в "крестик"
     :param field: Поле до хода игрока
     :param move: Введенный номер клетки игроком
     :return: Новое поле после хода игрока
     """
+    move_ = move - 1
     for value in field:
         if value == ' ':
-            field[move] = 'X'
+            field[move_] = current_player
             return field
 
-def player2_step(field, move) -> list:
-    """
-        Функция хода первого игрока. Переводит номер клетки, введенной игроком в "нолик"
-        :param field: Поле до хода игрока
-        :param move: Введенный номер клетки игроком
-        :return: Новое поле после хода игрока
-        """
-    for value in field:
-        if value == ' ':
-            field[move] = '0'
-            return field
